@@ -38,6 +38,11 @@
 					<img src="{{ asset('vendors/images/deskapp-logo.svg')}}" alt="">
 				</a>
 			</div>
+			{{-- <div class="login-menu">
+				<ul>
+					<li><a href="login.html">Inicio</a></li>
+				</ul>
+			</div> --}}
 			<div class="login-menu">
 				<ul>
 					<li><a href="register.html">Registrar</a></li>

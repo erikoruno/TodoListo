@@ -9,12 +9,24 @@
                 <img src="{{ asset('vendors/images/login-page-img.png')}}" alt="">
             </div>
             <div class="col-md-6 col-lg-5">
-                <div class="login-box bg-white box-shadow border-radius-10">
+                @if($errors->any())
                     <div class="login-title">
-                        <h2 class="text-center text-primary">Login To DeskApp</h2>
+                        <h2 class="text-center text-primary">Se encontro un error.</h2>
                     </div>
-                    <form>
-                        <div class="select-role">
+
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first()}}
+                    </div>
+                @else
+                    <div class="login-title">
+                        <h2 class="text-center text-primary">Iniciar sesión en TAREAS AHORA ingresando tus credenciales</h2>
+                    </div>
+                @endif
+                <div class="login-box bg-white box-shadow border-radius-10">
+                    
+                    <form role="form" method="POST" action="{{ route('login') }}">
+                        @csrf
+                        {{-- <div class="select-role">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn active">
                                     <input type="radio" name="options" id="admin">
@@ -29,15 +41,15 @@
                                     Employee
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="input-group custom">
-                            <input type="text" class="form-control form-control-lg" placeholder="Username">
+                            <input type="email" class="form-control form-control-lg" placeholder="Correo Electrónico" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             <div class="input-group-append custom">
                                 <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                             </div>
                         </div>
                         <div class="input-group custom">
-                            <input type="password" class="form-control form-control-lg" placeholder="**********">
+                            <input type="password" class="form-control form-control-lg" placeholder = "Contraseña" name="password" required autocomplete="current-password">
                             <div class="input-group-append custom">
                                 <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
                             </div>
@@ -45,26 +57,26 @@
                         <div class="row pb-30">
                             <div class="col-6">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Remember</label>
+                                    <input name="remember" type="checkbox" class="custom-control-input" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="remember">Recordar sesión</label>
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
+                                <div class="forgot-password"><a href="{{ route('password.request') }}">Olvidaste tú contraseña</a></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group mb-0">
-                                    <!--
-                                        use code for form submit
-                                        <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-                                    -->
-                                    <a class="btn btn-primary btn-lg btn-block" href="index.html">Sign In</a>
+                                    
+                                        {{-- use code for form submit --}}
+                                        <input class="btn btn-primary btn-lg btn-block" type="submit" value="Entra a tus tareas">
+                                    
+                                    {{-- <a class="btn btn-primary btn-lg btn-block" href="index.html">Entra a tus tareas</a> --}}
                                 </div>
-                                <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
+                                <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">O</div>
                                 <div class="input-group mb-0">
-                                    <a class="btn btn-outline-primary btn-lg btn-block" href="register.html">Register To Create Account</a>
+                                    <a class="btn btn-outline-primary btn-lg btn-block" href="{{ route('register')}}">Crea nueva cuenta</a>
                                 </div>
                             </div>
                         </div>
